@@ -40,17 +40,17 @@ export const MaterialCart = ({
                 />
               </div>
               <div className="bg-green-200/90 rounded-md mb-2 h-24  pb-5 shadow-lg   ">
-                <h2 className=" text-sm font-medium dark:text-white  w-full  h-5  rounded-md line-clamp-2 lg:line-clamp-1  bg-gray-100 mt-1 ">
+                <h2 className=" text-sm font-medium   w-full  h-5  rounded-md line-clamp-2 lg:line-clamp-1  bg-gray-100 mt-1 ">
                   {name}
                 </h2>
 
-                <p className=" text-sm dark:text-gray-300 text-gray-700 line-clamp-3 mb-1 p-1 text-start font-normal hover:underline ">
+                <p className=" text-sm text-black line-clamp-3 mb-1 p-1 text-start font-normal hover:underline ">
                   {description}
                 </p>
               </div>
               <Box animation={{ delay: 3000, type: "fadeIn" }}>
                 <div className=" grid grid-cols-2   ">
-                  <p className="pr-2 text-lg  font-semibold text-gray-900 dark:text-white bg-green-200/40 rounded-md w-16 h-7 hover:bg-gray-500">
+                  <p className="pr-2 text-lg  font-semibold text-black  bg-green-200/40 rounded-md w-16 h-7 hover:bg-gray-500">
                     ${value}.99
                   </p>
                   <div className="  mr-12">

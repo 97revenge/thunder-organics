@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect, HtmlHTMLAttributes } from "react";
 import { Label } from "./Label";
 import { LoginParagraph } from "./LoginParagraph";
 import { PrivacyBox } from "./PrivacyBox";
@@ -11,6 +11,7 @@ export let link: Object[] = [];
 type Event<type> = React.ChangeEvent<type>;
 
 export const Form = () => {
+  const handleRef = useRef(0);
   const [user, setUser] = useState<Partial<User<string>>>({
     name: "",
     lastName: "",
@@ -18,9 +19,20 @@ export const Form = () => {
     password: "",
   });
 
+  useEffect(() => {
+    const result: object = {
+      name: Object.values(user)[0],
+      lastName: Object.values(user)[1],
+      email: Object.values(user)[2],
+      password: Object.values(user)[3],
+    };
+
+    console.log(result);
+  }, [user]);
+
   type Model = string;
   type Action = React.ChangeEvent<HTMLInputElement> | React.SetStateAction<any>;
-  const reducerUser = (model: Model, action: Action) => {
+  const reducer = (model: Model, action: Action) => {
     switch (model) {
       case "name":
         setUser({
@@ -46,14 +58,12 @@ export const Form = () => {
           password: action,
         });
         break;
+      case "submit":
+        console.log(user);
+        alert("registrado com sucesso !!! ");
+        link.push(user);
+        window.location.href = "/login";
     }
-  };
-
-  const handleSubmit = () => {
-    console.log(user);
-    alert("registrado com sucesso !!!");
-    link.push(user);
-    window.location.href = "/login";
   };
 
   return (
@@ -70,8 +80,9 @@ export const Form = () => {
             className="mt-1 w-full rounded-md border-gray-200 bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1"
             minLength={5}
             onChange={(e: Event<HTMLInputElement>) =>
-              reducerUser("name", e.target.value)
+              reducer("name", e.target.value)
             }
+            ref={() => handleRef.current}
           />
         </div>
 
@@ -86,7 +97,7 @@ export const Form = () => {
             className="mt-1 w-full rounded-md border-gray-200 bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1"
             minLength={5}
             onChange={(e: Event<HTMLInputElement>) =>
-              reducerUser("lastName", e.target.value)
+              reducer("lastName", e.target.value)
             }
           />
         </div>
@@ -100,7 +111,7 @@ export const Form = () => {
             name="email"
             className="mt-1  rounded-md border-gray-200 bg-gray-100 text-xl text-gray-700 shadow-lg h-8 m-1"
             onChange={(e: Event<HTMLInputElement>) =>
-              reducerUser("email", e.target.value)
+              reducer("email", e.target.value)
             }
           />
         </div>
@@ -115,7 +126,7 @@ export const Form = () => {
             name="password"
             className="mt-1 w-full rounded-md border-gray-200 bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1"
             onChange={(e: Event<HTMLInputElement>) =>
-              reducerUser("password", e.target.value)
+              reducer("password", e.target.value)
             }
           />
         </div>
@@ -135,9 +146,9 @@ export const Form = () => {
         <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
           <button
             className="inline-block shrink-0 rounded-md border border-green-300 bg-green-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-green-600 focus:outline-none focus:ring active:text-green-500"
-            onClick={(e) => {
+            onClick={(e: React.ChangeEvent<HTMLInputElement | any>) => {
               e.preventDefault();
-              return handleSubmit();
+              return reducer("submit", e.target.value);
             }}
           >
             Crie sua conta
