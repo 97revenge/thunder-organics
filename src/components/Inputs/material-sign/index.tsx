@@ -1,4 +1,3 @@
-import React from "react";
 import { Elem } from "./Elem";
 import { ElemBanner } from "./ElemBanner";
 

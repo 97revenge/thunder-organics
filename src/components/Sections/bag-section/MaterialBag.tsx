@@ -1,15 +1,11 @@
 import { Box, Heading } from "grommet";
 import { useState, useRef, useEffect } from "react";
 import { bag } from "../../Carts";
-import React from "react";
-import { Product } from "./Product";
 
 export const MaterialBag = () => {
   const [state, setState] = useState({
     visible: false,
   });
-
-  const { visible } = state;
 
   const reducer = (method: string) => {
     switch (method) {
@@ -38,7 +34,7 @@ export const MaterialBag = () => {
   return (
     <>
       <Box
-        animation={visible === false ? "slideRight" : "fadeOut"}
+        animation={state.visible === false ? "slideRight" : "fadeOut"}
         className="absolute left-3 w-screen max-w-sm   sm:px-6 lg:px-8 hidden lg:block  "
       >
         <div
@@ -46,9 +42,11 @@ export const MaterialBag = () => {
           aria-modal="true"
           role="dialog"
         >
-          <button
+          <i
             className="absolute end-4 top-4 text-gray-600 transition hover:scale-110"
-            onClick={() => reducer("not visible")}
+            onClick={() => {
+              return reducer("not visible");
+            }}
           >
             <span className="sr-only">Close cart</span>
 
@@ -66,7 +64,7 @@ export const MaterialBag = () => {
                 d="M6 18L18 6M6 6l12 12"
               />
             </svg>
-          </button>
+          </i>
 
           <div className="mt-4 space-y-6 flex-1 w-full h-full items-center justify-center">
             <Heading textAlign="center">Seus Produtos</Heading>

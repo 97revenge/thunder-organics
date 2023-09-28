@@ -1,5 +1,3 @@
-import React from "react";
-
 // import { Bag } from "../../Carts";
 // const context = useContext(Bag);
 type ProductProps = {

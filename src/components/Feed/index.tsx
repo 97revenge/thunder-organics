@@ -1,4 +1,3 @@
-import React from "react";
 import { MaterialCart } from "../Carts";
 import { OrganicProductsContext as Context } from "../Carts/Context";
 
