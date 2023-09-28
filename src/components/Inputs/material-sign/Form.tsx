@@ -1,4 +1,4 @@
-import { Children, useState } from "react";
+import { useState } from "react";
 import { Label } from "./Label";
 import { LoginParagraph } from "./LoginParagraph";
 import { PrivacyBox } from "./PrivacyBox";
@@ -9,7 +9,7 @@ export let link: Object[] = [];
 
 type Event<type> = React.ChangeEvent<type>;
 
-export const Form = ({ children }: { children: React.ReactNode }) => {
+export const Form = () => {
   const [user, setUser] = useState<Partial<User<string>>>({
     name: "",
     lastName: "",
@@ -17,7 +17,7 @@ export const Form = ({ children }: { children: React.ReactNode }) => {
     password: "",
   });
 
-  const [Modal, setModal] = useState<any>();
+  // const [Modal, setModal] = useState<any>("");
 
   type Model = string;
   type Action = React.ChangeEvent<HTMLInputElement> | React.SetStateAction<any>;

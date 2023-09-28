@@ -2,7 +2,6 @@ import { MaterialParagraph } from "../Heading/MaterialParagraph";
 import { IconEmail } from "../Icon/IconEmail";
 import { IconPassword } from "../Icon/IconPassword";
 import { MaterialLabel } from "../Inputs/MaterialLabel";
-import { link } from "../Inputs/material-sign/Form";
 import { MaterialButton } from "../button/MaterialButton";
 
 export const MaterialForm = () => {

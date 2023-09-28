@@ -7,7 +7,7 @@ export default function SignForm() {
       <section className="bg-white">
         <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
           <ElemBanner />
-          <Elem children />
+          <Elem />
         </div>
       </section>
     </>
