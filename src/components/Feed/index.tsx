@@ -1,15 +1,11 @@
+import React from "react";
 import { MaterialCart } from "../Carts";
 import { OrganicProductsContext as Context } from "../Carts/Context";
 
-import { useContext, useState, useEffect } from "react";
+import { useContext } from "react";
 
 export default function MaterialFeed() {
   const context = useContext(Context);
-  const [delay, setDelay] = useState<any>(1500);
-
-  useEffect(() => {
-    setDelay(delay + 300);
-  }, []);
 
   return (
     <>
@@ -23,7 +19,7 @@ export default function MaterialFeed() {
                 description={item.description}
                 value={item.value}
                 discount={item.discount(item.value)}
-                time={Number(delay)}
+                time={Number(0)}
               />
             </>
           ))}

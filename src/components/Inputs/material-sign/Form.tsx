@@ -4,6 +4,7 @@ import { LoginParagraph } from "./LoginParagraph";
 import { PrivacyBox } from "./PrivacyBox";
 import { User } from "./User";
 import { Alert } from "./Alert";
+import React from "react";
 
 export let link: Object[] = [];
 
@@ -16,8 +17,6 @@ export const Form = () => {
     email: "",
     password: "",
   });
-
-  // const [Modal, setModal] = useState<any>("");
 
   type Model = string;
   type Action = React.ChangeEvent<HTMLInputElement> | React.SetStateAction<any>;
