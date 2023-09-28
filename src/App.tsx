@@ -1,0 +1,20 @@
+import { Route, Routes, BrowserRouter } from "react-router-dom";
+import Home from "./screens/home";
+import Login from "./screens/login";
+import Sign from "./screens/sign";
+import Feed from "./screens/feed";
+import { Config } from "./components/Cookies/Config";
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/sign" element={<Sign />} />
+        <Route path="/feed" element={<Feed />} />
+        <Route path="/config" element={<Config />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
