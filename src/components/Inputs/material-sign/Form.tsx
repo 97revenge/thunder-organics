@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, HtmlHTMLAttributes } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { Label } from "./Label";
 import { LoginParagraph } from "./LoginParagraph";
 import { PrivacyBox } from "./PrivacyBox";
@@ -19,16 +19,12 @@ export const Form = () => {
     password: "",
   });
 
-  useEffect(() => {
-    const result: object = {
-      name: Object.values(user)[0],
-      lastName: Object.values(user)[1],
-      email: Object.values(user)[2],
-      password: Object.values(user)[3],
-    };
-
-    console.log(result);
-  }, [user]);
+  const instance: Object | any = {
+    name: Object.values(user)[0],
+    lastName: Object.values(user)[1],
+    email: Object.values(user)[2],
+    password: Object.values(user)[3],
+  };
 
   type Model = string;
   type Action = React.ChangeEvent<HTMLInputElement> | React.SetStateAction<any>;
@@ -39,6 +35,7 @@ export const Form = () => {
           ...user,
           name: action,
         });
+
         break;
       case "lastName":
         setUser({
@@ -63,12 +60,19 @@ export const Form = () => {
         alert("registrado com sucesso !!! ");
         link.push(user);
         window.location.href = "/login";
+        break;
+      case "validate":
+        while (instance.name.lenght >= 20) {}
     }
   };
 
   return (
     <>
-      <form action="#" className="mt-8 grid grid-cols-6 gap-6">
+      <form
+        action="#"
+        className="mt-8 grid grid-cols-6 gap-6"
+        onSubmit={() => {}}
+      >
         <div className="col-span-6 sm:col-span-3">
           <Label tag="Nome" />
 
@@ -157,7 +161,7 @@ export const Form = () => {
           <LoginParagraph />
         </div>
       </form>
-      {typeof user.name === "string" ? (
+      {instance.name.length >= 20 ? (
         <Alert.Red title="Usuario nao definido  " />
       ) : (
         <div></div>

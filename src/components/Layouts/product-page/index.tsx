@@ -4,10 +4,6 @@ import MaterialFeed from "../../Feed";
 import { ProductPath } from "./ProductPath";
 import { ProductContent } from "./ProductContent";
 import { MaterialNav } from "../nav";
-<<<<<<< HEAD
-=======
-import { MaterialFooter } from "../footer";
->>>>>>> db717c3ce632e7e9076b0e04d83c77bf3d92bc15
 
 export default function MaterialProductPage() {
   return (
