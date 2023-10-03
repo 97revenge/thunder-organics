@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Label } from "./Label";
 import { LoginParagraph } from "./LoginParagraph";
 import { PrivacyBox } from "./PrivacyBox";
@@ -19,23 +19,21 @@ export const Form = () => {
     password: "",
   });
 
-  const instance: Object | any = {
-    name: Object.values(user)[0],
-    lastName: Object.values(user)[1],
-    email: Object.values(user)[2],
-    password: Object.values(user)[3],
-  };
+  const [toogle, setToogle] = useState<string | React.ReactNode>("");
+
+  console.log();
+
+  useEffect(() => {}, [user]);
 
   type Model = string;
   type Action = React.ChangeEvent<HTMLInputElement> | React.SetStateAction<any>;
-  const reducer = (model: Model, action: Action) => {
+  const reducer = (model: Model, action?: Action) => {
     switch (model) {
       case "name":
         setUser({
           ...user,
           name: action,
         });
-
         break;
       case "lastName":
         setUser({
@@ -56,15 +54,48 @@ export const Form = () => {
         });
         break;
       case "submit":
-        console.log(user);
-        alert("registrado com sucesso !!! ");
-        link.push(user);
-        window.location.href = "/login";
+        const result: number = Number(user.name?.length);
+        if (result >= 10) {
+          setToogle("green");
+          link.push(user);
+          console.log(user);
+        } else {
+          setToogle("red");
+        }
         break;
-      case "validate":
-        while (instance.name.lenght >= 20) {}
     }
   };
+
+  interface NameSpace extends User<{}> {
+    name: number;
+    lastName: number;
+    email: number;
+    password: number;
+    validate?: () => void;
+    operation?: () => void;
+  }
+
+  const namespace: NameSpace = {
+    name: Number(user["name"]?.length),
+    lastName: Number(user["lastName"]?.length),
+    email: Number(user["email"]?.length),
+    password: Number(user["password"]?.length),
+  };
+
+  namespace.operation = function () {
+    setToogle("red");
+  };
+
+  const { operation } = namespace;
+
+  namespace.validate = function () {
+    namespace.name <= 5 && operation();
+    namespace.lastName <= 5 && operation();
+    namespace.email <= 23 && operation();
+    namespace.lastName <= 23 && operation();
+  };
+
+  const { validate } = namespace;
 
   return (
     <>
@@ -73,7 +104,7 @@ export const Form = () => {
         className="mt-8 grid grid-cols-6 gap-6"
         onSubmit={() => {}}
       >
-        <div className="col-span-6 sm:col-span-3">
+        <div className="col-span-6 sm:col-span-3 ">
           <Label tag="Nome" />
 
           <input
@@ -81,7 +112,11 @@ export const Form = () => {
             type="text"
             id="FirstName"
             name="first_name"
-            className="mt-1 w-full rounded-md border-gray-200 bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1"
+            className={
+              namespace.name >= 15
+                ? "mt-1 w-full rounded-md  bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1 pl-2 border border-green-900 "
+                : "mt-1 w-full rounded-md  bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1 pl-2 hover:border  "
+            }
             minLength={5}
             onChange={(e: Event<HTMLInputElement>) =>
               reducer("name", e.target.value)
@@ -98,7 +133,11 @@ export const Form = () => {
             type="text"
             id="LastName"
             name="last_name"
-            className="mt-1 w-full rounded-md border-gray-200 bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1"
+            className={
+              namespace.lastName >= 15
+                ? "mt-1 w-full rounded-md  bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1 pl-2 border border-green-900 "
+                : "mt-1 w-full rounded-md  bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1 pl-2 hover:border  "
+            }
             minLength={5}
             onChange={(e: Event<HTMLInputElement>) =>
               reducer("lastName", e.target.value)
@@ -109,11 +148,14 @@ export const Form = () => {
         <div className="col-span-6 ">
           <Label tag="Email" />
           <input
-            required
             type="email"
             id="Email"
             name="email"
-            className="mt-1  rounded-md border-gray-200 bg-gray-100 text-xl text-gray-700 shadow-lg h-8 m-1"
+            className={
+              namespace.email >= 23
+                ? "mt-1 w-full rounded-md  bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1 pl-2 border border-green-900 "
+                : "mt-1 w-full rounded-md  bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1 pl-2   "
+            }
             onChange={(e: Event<HTMLInputElement>) =>
               reducer("email", e.target.value)
             }
@@ -128,7 +170,13 @@ export const Form = () => {
             type="password"
             id="Password"
             name="password"
-            className="mt-1 w-full rounded-md border-gray-200 bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1"
+            className={
+              namespace.password >= 15
+                ? "mt-1 w-full rounded-md  bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1 pl-2 border border-green-900 "
+                : namespace.password <= 15
+                ? "mt-1 w-full rounded-md  bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1 pl-2 hover:border "
+                : "mt-1 w-full rounded-md  bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1 pl-2 "
+            }
             onChange={(e: Event<HTMLInputElement>) =>
               reducer("password", e.target.value)
             }
@@ -142,7 +190,13 @@ export const Form = () => {
             type="password"
             id="PasswordConfirmation"
             name="password_confirmation"
-            className="mt-1 w-full rounded-md border-gray-200 bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1"
+            className={
+              namespace.password >= 15
+                ? "mt-1 w-full rounded-md  bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1 pl-2 border border-green-900 "
+                : namespace.password <= 15
+                ? "mt-1 w-full rounded-md  bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1 pl-2 hover:border "
+                : "mt-1 w-full rounded-md  bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1 pl-2 "
+            }
           />
         </div>
         <PrivacyBox />
@@ -152,6 +206,7 @@ export const Form = () => {
             className="inline-block shrink-0 rounded-md border border-green-300 bg-green-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-green-600 focus:outline-none focus:ring active:text-green-500"
             onClick={(e: React.ChangeEvent<HTMLInputElement | any>) => {
               e.preventDefault();
+              validate();
               return reducer("submit", e.target.value);
             }}
           >
@@ -161,10 +216,18 @@ export const Form = () => {
           <LoginParagraph />
         </div>
       </form>
-      {instance.name.length >= 20 ? (
-        <Alert.Red title="Usuario nao definido  " />
+      {toogle === "red" ? (
+        <Alert.Red
+          title="recomfirme seus dados"
+          subtitle="Falta de caracteres no nome ou sobrenome ou email"
+        />
       ) : (
-        <div></div>
+        toogle === "green" && (
+          <Alert.Green
+            title="Registrado com sucesso !!!!"
+            subtitle="Voce sera redirecionado em segundos"
+          />
+        )
       )}
     </>
   );
