@@ -1,13 +1,13 @@
 export const ProductContent = () => {
   return (
     <>
-      <div className="lg:col-gap-12 xl:col-gap-16 mt-8 grid grid-cols-1 gap-12 lg:mt-12 lg:grid-cols-5 lg:gap-16">
-        <div className="lg:col-span-3 lg:row-end-1">
+      <div className="lg:col-gap-12 xl:col-gap-16 mt-8 grid grid-cols-1 gap-12 lg:mt-12 lg:grid-cols-6 lg:gap-16 ">
+        <div className="lg:col-span-3 lg:row-end-1 flex items-center">
           <div className="lg:flex lg:items-start">
             <div className="lg:order-2 lg:ml-5">
-              <div className="max-w-xl overflow-hidden rounded-lg flex-1 items-center align-middle justify-center md:ml-20 ">
+              <div className="max-w-xl overflow-hidden rounded-lg flex items-center align-middle justify-center  md:ml-20 ">
                 <img
-                  className="h-full w-full max-w-full object-cover"
+                  className="h-full w-full max-w-full object-cover  border-gray-200 border-8  rounded-xl"
                   src="https://source.unsplash.com/random/800x600"
                   alt=""
                 />
@@ -16,7 +16,7 @@ export const ProductContent = () => {
           </div>
         </div>
 
-        <div className="h-full w-full lg:col-span-2 lg:row-span-2 lg:row-end-2 bg-gray-200 p-3 rounded-lg ">
+        <div className="h-full  lg:col-span-2 lg:row-span-2 lg:row-end-2 bg-gray-200  rounded-lg p-3   ">
           <h1 className="sm: text-2xl font-bold text-gray-900 sm:text-3xl">
             Produto Exemplo
           </h1>

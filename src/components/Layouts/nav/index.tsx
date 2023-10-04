@@ -24,7 +24,7 @@ export const MaterialNav = ({ children = <Component /> }: Partial<Props>) => {
   return (
     <>
       <Box animation={"fadeIn"}>
-        <header className="bg-white">{children}</header>
+        <header className="bg-white ">{children}</header>
       </Box>
     </>
   );

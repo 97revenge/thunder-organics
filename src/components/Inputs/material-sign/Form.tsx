@@ -58,7 +58,7 @@ export const Form = () => {
         if (result >= 10) {
           setToogle("green");
           link.push(user);
-          console.log(user);
+          window.location.href = "/feed";
         } else {
           setToogle("red");
         }
@@ -127,7 +127,6 @@ export const Form = () => {
 
         <div className="col-span-6 sm:col-span-3">
           <Label tag="Sobrenome" />
-
           <input
             required
             type="text"
@@ -154,7 +153,7 @@ export const Form = () => {
             className={
               namespace.email >= 23
                 ? "mt-1 w-full rounded-md  bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1 pl-2 border border-green-900 "
-                : "mt-1 w-full rounded-md  bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1 pl-2   "
+                : "mt-1 w-80  rounded-md  bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1 pl-2   "
             }
             onChange={(e: Event<HTMLInputElement>) =>
               reducer("email", e.target.value)
