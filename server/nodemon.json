@@ -1,0 +1,6 @@
+{
+  "whatch": ["src"],
+  "ext": "ts",
+  "exec": "ts-node src/app.ts",
+  "delay": "200"
+}

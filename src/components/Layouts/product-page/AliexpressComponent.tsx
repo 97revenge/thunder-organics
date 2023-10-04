@@ -70,12 +70,9 @@ export const AliexpressComponent = (): React.ReactNode => {
 
   return (
     <>
-      <div className="bg-white py-5  w-full flex flex-col items-center h-full">
+      <div className="bg-white py-5   flex flex-col items-center h-full w-full ">
         <Title />
-        <div className="bg-gray-100 grid grid-flow-row grid-cols-1  md:grid-rows-2 lg:grid-cols-3 sm:grid-cols-3      p-5 rounded-lg  gap-10 h-auto  w-auto items-center ">
-          <Elem />
-          <Elem />
-          <Elem />
+        <div className="bg-gray-900/10 grid grid-cols-2   md:grid-cols-3 lg:grid-cols-3  sm:grid-cols-1 sm:grid-flow-row      p-5 rounded-lg  gap-10  w-full items-center ">
           <Elem />
           <Elem />
           <Elem />

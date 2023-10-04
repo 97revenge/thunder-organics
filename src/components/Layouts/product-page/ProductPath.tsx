@@ -1,7 +1,7 @@
 export const ProductPath = () => {
   return (
     <>
-      <nav className="flex">
+      <nav className="flex bg-gray-200/90 rounded-xl object-fill w-72 py-0.5 px-2">
         <ol role="list" className="flex items-center">
           <li className="text-left">
             <div className="-m-1">
