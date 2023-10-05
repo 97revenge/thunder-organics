@@ -5,6 +5,7 @@ import Sign from "./screens/sign";
 import Feed from "./screens/feed";
 import { Config } from "./components/Cookies/Config";
 import MaterialProductPage from "./components/Layouts/product-page";
+import MaterialRelated from "./components/Shop/related";
 
 export default function App() {
   return (
@@ -15,7 +16,9 @@ export default function App() {
         <Route path="/sign" element={<Sign />} />
         <Route path="/feed" element={<Feed />} />
         <Route path="/config" element={<Config />} />
-        <Route path="/product" element={<MaterialProductPage />} />
+        <Route path="/product/:tag" element={<MaterialProductPage />} />
+        <Route path="/product/" element={<MaterialProductPage />} />
+        <Route path="/test/" element={<MaterialRelated />} />
       </Routes>
     </BrowserRouter>
   );

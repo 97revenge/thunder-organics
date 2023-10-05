@@ -1,6 +1,7 @@
-import express, { Application, Request, Response } from "express";
+import express, { Application } from "express";
 
-import fs from "node:fs";
+// import cors from "cors";
+
 import router from "./macro";
 import { Middleware } from "./types/types";
 
@@ -11,6 +12,7 @@ app.use(router);
 
 app.get("/", (req, res): Middleware | void => {
   console.log(req.params);
+
   res.send("ok");
 });
 
