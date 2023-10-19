@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Label } from "./Label";
 import { LoginParagraph } from "./LoginParagraph";
 import { PrivacyBox } from "./PrivacyBox";
@@ -7,71 +7,52 @@ import { Alert } from "./Alert";
 import React from "react";
 
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 import { z } from "zod";
 import { userSchema } from "./userSchema";
 
 type UserSchemaType = z.infer<typeof userSchema>;
-
-export let link: Object[] = [];
-
-type Event<type> = React.ChangeEvent<type>;
+interface ComfirmType extends UserSchemaType {
+  comfirm: {
+    password: string;
+    comfirm: boolean;
+  };
+}
 
 export const Form = () => {
-  const { register } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(userSchema),
+  });
 
-  const [user, setUser] = useState<UserSchemaType>({
+  console.log(errors);
+
+  const [user, setUser] = useState<ComfirmType>({
     name: "",
     lastName: "",
     email: "",
     password: "",
+    comfirm: {
+      password: "",
+      comfirm: false,
+    },
+  });
+
+  const onsubmit = handleSubmit((data) => {
+    return setUser({
+      ...user,
+      name: data.name,
+      lastName: data.lastName,
+      email: data.email,
+      password: data.password,
+    });
   });
 
   const [toogle, setToogle] = useState<string | React.ReactNode>("");
-
-  console.log();
-
-  useEffect(() => {}, [user]);
-
-  type Model = string;
-  type Action = React.ChangeEvent<HTMLInputElement> | React.SetStateAction<any>;
-  const reducer = (model: Model, action?: Action) => {
-    switch (model) {
-      case "name":
-        setUser({
-          ...user,
-          name: action,
-        });
-        break;
-      case "lastName":
-        setUser({
-          ...user,
-          lastName: action,
-        });
-        break;
-      case "email":
-        setUser({
-          ...user,
-          email: action,
-        });
-        break;
-      case "password":
-        setUser({
-          ...user,
-          password: action,
-        });
-        break;
-      case "submit":
-        const result: number = Number(user.name?.length);
-        if (result >= 10) {
-          setToogle("green");
-          link.push(user);
-          window.location.href = "/feed";
-        } else {
-          setToogle("red");
-        }
-        break;
-    }
-  };
 
   interface NameSpace extends User<{}> {
     name: number;
@@ -102,14 +83,12 @@ export const Form = () => {
     namespace.lastName <= 23 && operation();
   };
 
-  const { validate } = namespace;
-
   return (
     <>
       <form
         action="#"
-        className="mt-8 grid grid-cols-6 gap-6"
-        onSubmit={() => {}}
+        className="mt-8 grid grid-cols-6 gap-6 px-10 py-2 sm:px-0  pt-3   rounded-md md:transparent bg-opacity-35"
+        onSubmit={onsubmit}
       >
         <div className="col-span-6 sm:col-span-3 ">
           <Label tag="Nome" />
@@ -118,14 +97,9 @@ export const Form = () => {
             type="text"
             id="FirstName"
             className={
-              namespace.name >= 15
-                ? "mt-1 w-full rounded-md  bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1 pl-2 border border-green-900 "
-                : "mt-1 w-full rounded-md  bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1 pl-2 hover:border  "
+              "mt-1 w-[275px] rounded-md  bg-gray-100 text-sm text-gray-700 shadow-md h-8 m-1 pl-2 border"
             }
             {...register("name")}
-            onChange={(e: Event<HTMLInputElement>) =>
-              reducer("name", e.target.value)
-            }
           />
         </div>
 
@@ -135,14 +109,9 @@ export const Form = () => {
             type="text"
             id="LastName"
             className={
-              namespace.lastName >= 15
-                ? "mt-1 w-full rounded-md  bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1 pl-2 border border-green-900 "
-                : "mt-1 w-full rounded-md  bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1 pl-2 hover:border  "
+              "mt-1 w-[275px] rounded-md  bg-gray-100 text-sm text-gray-700 shadow-md h-8 m-1 pl-2 border "
             }
             {...register("lastName")}
-            onChange={(e: Event<HTMLInputElement>) =>
-              reducer("lastName", e.target.value)
-            }
           />
         </div>
 
@@ -152,14 +121,9 @@ export const Form = () => {
             type="email"
             id="Email"
             className={
-              namespace.email >= 23
-                ? "mt-1 w-full rounded-md  bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1 pl-2 border border-green-900 "
-                : "mt-1 w-80  rounded-md  bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1 pl-2   "
+              "mt-1 w-[275px] rounded-md  bg-gray-100 text-sm text-gray-700 shadow-md h-8 m-1 pl-2 border  "
             }
             {...register("email")}
-            onChange={(e: Event<HTMLInputElement>) =>
-              reducer("email", e.target.value)
-            }
           />
         </div>
 
@@ -171,16 +135,9 @@ export const Form = () => {
             type="password"
             id="Password"
             className={
-              namespace.password >= 15
-                ? "mt-1 w-full rounded-md  bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1 pl-2 border border-green-900 "
-                : namespace.password <= 15
-                ? "mt-1 w-full rounded-md  bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1 pl-2 hover:border "
-                : "mt-1 w-full rounded-md  bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1 pl-2 "
+              "mt-1 w-[275px] rounded-md  bg-gray-100 text-sm text-gray-700 shadow-md h-8 m-1 pl-2 border "
             }
             {...register("password")}
-            onChange={(e: Event<HTMLInputElement>) =>
-              reducer("password", e.target.value)
-            }
           />
         </div>
 
@@ -190,37 +147,33 @@ export const Form = () => {
             required
             type="password"
             id="PasswordConfirmation"
-            name="password_confirmation"
+            {...register("comfirm")}
             className={
-              namespace.password >= 15
-                ? "mt-1 w-full rounded-md  bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1 pl-2 border border-green-900 "
-                : namespace.password <= 15
-                ? "mt-1 w-full rounded-md  bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1 pl-2 hover:border "
-                : "mt-1 w-full rounded-md  bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1 pl-2 "
+              "mt-1 w-[275px] rounded-md  bg-gray-100 text-sm text-gray-700 shadow-md h-8 m-1 pl-2 "
             }
           />
         </div>
         <PrivacyBox props={false} />
 
-        <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
-          <button
-            className="inline-block shrink-0 rounded-md border border-green-300 bg-green-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-green-600 focus:outline-none focus:ring active:text-green-500"
-            onClick={(e: React.ChangeEvent<HTMLInputElement | any>) => {
-              e.preventDefault();
-              validate();
-              return reducer("submit", e.target.value);
-            }}
+        <div className="col-span-6 sm:flex sm:items-center sm:gap-4  px-12 ">
+          <a
+            className=" shrink-0 rounded-md border border-green-300 bg-green-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-green-600 focus:outline-none focus:ring active:text-green-500"
+            type="submit"
           >
             Crie sua conta
-          </button>
+          </a>
 
           <LoginParagraph />
         </div>
       </form>
+
+      {user.name && (
+        <div>{[user.name, user.lastName, user.email, user.password]}</div>
+      )}
       {toogle === "red" ? (
         <Alert.Red
           title="recomfirme seus dados"
-          subtitle="Falta de caracteres no nome ou sobrenome ou email"
+          subtitle={JSON.stringify(errors)}
         />
       ) : (
         toogle === "green" && (
