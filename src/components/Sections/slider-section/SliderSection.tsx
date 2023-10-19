@@ -5,9 +5,11 @@ type Props = { children: React.ReactNode; tag: string };
 const Content = ({ tag }: Partial<Props>) => {
   return (
     <>
-      <p className=" flex-row font-bold line-clamp-4  sm:text-lg lg:text-sm   ">
-        {tag}
-      </p>
+      <div className=" px-10 ml-12 w-full flex items-center justify-center ">
+        <p className="  w-full  h-full flex-row font-bold line-clamp-4  sm:text-lg lg:text-sm bg-white bg-opacity-70 rounded-md  text-green-800   items-center">
+          {tag}
+        </p>
+      </div>
     </>
   );
 };
@@ -34,14 +36,14 @@ const ProductsCarousel = ({}) => {
   return (
     <>
       <Carousel controls={false} play={3000}>
-        <GroometBox tag="bg-gradient-to-r from-green-500/40 to-green-200/40">
-          <Content tag="FLV na Promo 🥬🥦🥒 " />
+        <GroometBox tag="bg-cover bg-center  w-full h-full object-fill bg-[url(https://source.unsplash.com/random/720x600/?vegetables)] ">
+          <Content tag="FLV na Promo 🥬 " />
         </GroometBox>
-        <GroometBox tag="bg-gradient-to-r from-green-500/40 to-green-200/40">
-          <Content tag=" Embalados 🌯🥫🥪🥗 " />
+        <GroometBox tag="bg-cover bg-center  w-full h-full  bg-[url(https://source.unsplash.com/random/720x600/?fruits)]">
+          <Content tag=" Embalados 🌯 " />
         </GroometBox>
-        <GroometBox tag="bg-gradient-to-r from-green-500/40 to-green-200/40">
-          <Content tag=" Frutas Docinhas 🍒🍓🍍🥑 " />
+        <GroometBox tag="bg-cover bg-center  w-full h-full  bg-[url(https://source.unsplash.com/random/720x600/?groceries)]">
+          <Content tag=" O melhor do mercado 🌟 " />
         </GroometBox>
       </Carousel>
     </>
@@ -52,14 +54,14 @@ const OffersCarousel = ({}) => {
   return (
     <>
       <Carousel controls={false} play={3500}>
-        <GroometBox tag="bg-gradient-to-r from-yellow-500/40 to-yellow-200/40">
-          <Content tag="Olha a oferta 😍👀 " />
+        <GroometBox tag="bg-cover bg-center  w-full h-full  bg-[url(https://source.unsplash.com/random/720x600/?ecommerce)]">
+          <Content tag="Olha a oferta 😍 " />
         </GroometBox>
-        <GroometBox tag="bg-gradient-to-r from-yellow-500/40 to-yellow-200/40">
+        <GroometBox tag="bg-cover bg-center  w-full h-full  bg-[url(https://source.unsplash.com/random/720x600/?salad)]">
           <Content tag="Já vai acabar 💨 " />
         </GroometBox>
-        <GroometBox tag="bg-gradient-to-r from-yellow-500/40 to-yellow-200/40">
-          <Content tag="Coisas Novas  😍👨‍👩‍👧‍👧🆕 " />
+        <GroometBox tag="bg-cover bg-center  w-full h-full  bg-[url(https://source.unsplash.com/random/720x600/?family)]">
+          <Content tag="Coisas Novas 😍 " />
         </GroometBox>
       </Carousel>
     </>
@@ -69,14 +71,14 @@ const DayOffCarousel = ({}) => {
   return (
     <>
       <Carousel controls={false} play={4500}>
-        <GroometBox tag="bg-gradient-to-r from-green-500/40 to-green-200/40">
-          <Content tag="Promocoes de FLV !!! " />
+        <GroometBox tag="bg-cover bg-center  w-full h-full  bg-[url(https://source.unsplash.com/random/720x600/?organic)]">
+          <Content tag="Promocoes de FLV !" />
         </GroometBox>
-        <GroometBox tag="bg-gradient-to-r from-green-500/40 to-green-200/40">
-          <Content tag="Embalados no preco ! " />
+        <GroometBox tag="bg-cover bg-center  w-full h-full  bg-[url(https://source.unsplash.com/random/720x600/?vegetables)]">
+          <Content tag="Embalados no preco !" />
         </GroometBox>
-        <GroometBox tag="bg-gradient-to-r from-green-500/40 to-green-200/40">
-          <Content tag="Promocoes de Frutas !!! " />
+        <GroometBox tag="bg-cover bg-center  w-full h-full  bg-[url(https://source.unsplash.com/random/720x600/?green)]">
+          <Content tag="Promocoes de Frutas ! " />
         </GroometBox>
       </Carousel>
     </>

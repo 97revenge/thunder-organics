@@ -56,7 +56,9 @@ export const AliexpressCart = () => {
               lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem
               ipsum lorem ipsum lorem ipsum
             </p>
-            <div className="text-xs  text-[#009966] ml-2">Frete grátis</div>
+            <div className="text-sm  w-full  text-[#009966]  flex  flex-row items-center justify-center px-2 py-0.5 rounded-md">
+              <p>Frete grátis</p>
+            </div>
           </div>
         </a>
         <button

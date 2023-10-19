@@ -20,7 +20,12 @@ export const MaterialCart = ({
       discount,
     };
     bag.push(result);
-    console.log(bag);
+    console.log(
+      bag.map((item: any) => {
+        const result: number = Number(item.value) + Number(bag.length);
+        console.log([result]);
+      })
+    );
   };
 
   return (

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Label } from "./Label";
 import { LoginParagraph } from "./LoginParagraph";
 import { PrivacyBox } from "./PrivacyBox";
@@ -6,13 +6,20 @@ import { User } from "./User";
 import { Alert } from "./Alert";
 import React from "react";
 
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { userSchema } from "./userSchema";
+
+type UserSchemaType = z.infer<typeof userSchema>;
+
 export let link: Object[] = [];
 
 type Event<type> = React.ChangeEvent<type>;
 
 export const Form = () => {
-  const handleRef = useRef(0);
-  const [user, setUser] = useState<Partial<User<string>>>({
+  const { register } = useForm();
+
+  const [user, setUser] = useState<UserSchemaType>({
     name: "",
     lastName: "",
     email: "",
@@ -108,36 +115,31 @@ export const Form = () => {
           <Label tag="Nome" />
 
           <input
-            required
             type="text"
             id="FirstName"
-            name="first_name"
             className={
               namespace.name >= 15
                 ? "mt-1 w-full rounded-md  bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1 pl-2 border border-green-900 "
                 : "mt-1 w-full rounded-md  bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1 pl-2 hover:border  "
             }
-            minLength={5}
+            {...register("name")}
             onChange={(e: Event<HTMLInputElement>) =>
               reducer("name", e.target.value)
             }
-            ref={() => handleRef.current}
           />
         </div>
 
         <div className="col-span-6 sm:col-span-3">
           <Label tag="Sobrenome" />
           <input
-            required
             type="text"
             id="LastName"
-            name="last_name"
             className={
               namespace.lastName >= 15
                 ? "mt-1 w-full rounded-md  bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1 pl-2 border border-green-900 "
                 : "mt-1 w-full rounded-md  bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1 pl-2 hover:border  "
             }
-            minLength={5}
+            {...register("lastName")}
             onChange={(e: Event<HTMLInputElement>) =>
               reducer("lastName", e.target.value)
             }
@@ -149,12 +151,12 @@ export const Form = () => {
           <input
             type="email"
             id="Email"
-            name="email"
             className={
               namespace.email >= 23
                 ? "mt-1 w-full rounded-md  bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1 pl-2 border border-green-900 "
                 : "mt-1 w-80  rounded-md  bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1 pl-2   "
             }
+            {...register("email")}
             onChange={(e: Event<HTMLInputElement>) =>
               reducer("email", e.target.value)
             }
@@ -168,7 +170,6 @@ export const Form = () => {
             required
             type="password"
             id="Password"
-            name="password"
             className={
               namespace.password >= 15
                 ? "mt-1 w-full rounded-md  bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1 pl-2 border border-green-900 "
@@ -176,6 +177,7 @@ export const Form = () => {
                 ? "mt-1 w-full rounded-md  bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1 pl-2 hover:border "
                 : "mt-1 w-full rounded-md  bg-gray-100 text-sm text-gray-700 shadow-lg h-8 m-1 pl-2 "
             }
+            {...register("password")}
             onChange={(e: Event<HTMLInputElement>) =>
               reducer("password", e.target.value)
             }
@@ -198,7 +200,7 @@ export const Form = () => {
             }
           />
         </div>
-        <PrivacyBox />
+        <PrivacyBox props={false} />
 
         <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
           <button

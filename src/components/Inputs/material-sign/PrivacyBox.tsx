@@ -1,4 +1,10 @@
-export const PrivacyBox = () => {
+import { useState } from "react";
+
+export const PrivacyBox = ({ props }: { props: boolean }) => {
+  const [state, setState] = useState<{ check: boolean }>({
+    check: props,
+  });
+
   return (
     <>
       <div className="col-span-6">
@@ -8,6 +14,14 @@ export const PrivacyBox = () => {
             id="MarketingAccept"
             name="marketing_accept"
             className="h-5 w-5 rounded-md border-gray-200 bg-gray-100 shadow-md"
+            checked={state.check}
+            onClick={() =>
+              setState({
+                ...state,
+                check: true,
+              })
+            }
+            onChange={() => console.log(state.check)}
           />
 
           <span className="text-sm text-gray-700">

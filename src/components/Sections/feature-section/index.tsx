@@ -1,5 +1,5 @@
 import { SliderSection as Slider } from "../slider-section/SliderSection";
-import MaterialFeed from "../../Feed";
+import MaterialFeed from "../../feed";
 import { Feature } from "./Feature";
 import React from "react";
 import { MaterialBag } from "../bag-section/MaterialBag";
