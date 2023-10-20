@@ -13,46 +13,47 @@ import { z } from "zod";
 import { userSchema } from "./userSchema";
 
 type UserSchemaType = z.infer<typeof userSchema>;
-interface ComfirmType extends UserSchemaType {
-  comfirm: {
-    password: string;
-    comfirm: boolean;
-  };
-}
+
+const MaterialSpan = ({ children }: { children: string }) => {
+  return (
+    <>
+      <div className="px-2 underline">{children}</div>
+    </>
+  );
+};
 
 export const Form = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<UserSchemaType>({
     resolver: zodResolver(userSchema),
   });
 
-  console.log(errors);
+  const [toogle, setToogle] = useState<string | React.ReactNode>("");
 
-  const [user, setUser] = useState<ComfirmType>({
+  type StateSchemaType = Omit<UserSchemaType, "comfirm">;
+  const [user, setUser] = useState<StateSchemaType>({
     name: "",
     lastName: "",
     email: "",
     password: "",
-    comfirm: {
-      password: "",
-      comfirm: false,
-    },
   });
 
   const onsubmit = handleSubmit((data) => {
-    return setUser({
+    setUser({
       ...user,
       name: data.name,
       lastName: data.lastName,
       email: data.email,
       password: data.password,
     });
-  });
 
-  const [toogle, setToogle] = useState<string | React.ReactNode>("");
+    if (user.name.length >= 1) {
+      setToogle("green");
+    }
+  });
 
   interface NameSpace extends User<{}> {
     name: number;
@@ -71,16 +72,14 @@ export const Form = () => {
   };
 
   namespace.operation = function () {
-    setToogle("red");
+    setToogle("green");
+    window.location.href = "/feed";
   };
 
   const { operation } = namespace;
 
   namespace.validate = function () {
-    namespace.name <= 5 && operation();
-    namespace.lastName <= 5 && operation();
-    namespace.email <= 23 && operation();
-    namespace.lastName <= 23 && operation();
+    !errors && operation();
   };
 
   return (
@@ -97,10 +96,15 @@ export const Form = () => {
             type="text"
             id="FirstName"
             className={
-              "mt-1 w-[275px] rounded-md  bg-gray-100 text-sm text-gray-700 shadow-md h-8 m-1 pl-2 border"
+              !errors.name?.message
+                ? "mt-1 w-[275px] rounded-md  bg-gray-100 text-sm text-gray-700 shadow-md h-8 m-1 pl-2 border "
+                : "mt-1 w-[275px] rounded-md  bg-gray-100 text-sm text-gray-700 shadow-md h-8 m-1 pl-2 border border-red-200"
             }
             {...register("name")}
           />
+          {errors.name?.message && (
+            <MaterialSpan children={errors.name?.message} />
+          )}
         </div>
 
         <div className="col-span-6 sm:col-span-3">
@@ -109,10 +113,15 @@ export const Form = () => {
             type="text"
             id="LastName"
             className={
-              "mt-1 w-[275px] rounded-md  bg-gray-100 text-sm text-gray-700 shadow-md h-8 m-1 pl-2 border "
+              !errors.lastName?.message
+                ? "mt-1 w-[275px] rounded-md  bg-gray-100 text-sm text-gray-700 shadow-md h-8 m-1 pl-2 border"
+                : "mt-1 w-[275px] rounded-md  bg-gray-100 text-sm text-gray-700 shadow-md h-8 m-1 pl-2 border border-red-200"
             }
             {...register("lastName")}
           />
+          {errors.lastName?.message && (
+            <MaterialSpan children={errors.lastName?.message} />
+          )}
         </div>
 
         <div className="col-span-6 ">
@@ -121,17 +130,21 @@ export const Form = () => {
             type="email"
             id="Email"
             className={
-              "mt-1 w-[275px] rounded-md  bg-gray-100 text-sm text-gray-700 shadow-md h-8 m-1 pl-2 border  "
+              !errors.email?.message
+                ? "mt-1 w-[275px] rounded-md  bg-gray-100 text-sm text-gray-700 shadow-md h-8 m-1 pl-2 border"
+                : "mt-1 w-[275px] rounded-md  bg-gray-100 text-sm text-gray-700 shadow-md h-8 m-1 pl-2 border border-red-200"
             }
             {...register("email")}
           />
+          {errors.email?.message && (
+            <MaterialSpan children={errors.email?.message} />
+          )}
         </div>
 
         <div className="col-span-6 sm:col-span-3">
           <Label tag="Senha" />
 
           <input
-            required
             type="password"
             id="Password"
             className={
@@ -139,41 +152,43 @@ export const Form = () => {
             }
             {...register("password")}
           />
+          {errors.password?.message && (
+            <MaterialSpan children={errors.password?.message} />
+          )}
         </div>
 
         <div className="col-span-6 sm:col-span-3">
           <Label tag="Comfirme a senha " />
           <input
-            required
             type="password"
             id="PasswordConfirmation"
-            {...register("comfirm")}
             className={
               "mt-1 w-[275px] rounded-md  bg-gray-100 text-sm text-gray-700 shadow-md h-8 m-1 pl-2 "
             }
           />
+          {errors.comfirm?.message && (
+            <MaterialSpan children={errors.comfirm.message} />
+          )}
         </div>
         <PrivacyBox props={false} />
 
         <div className="col-span-6 sm:flex sm:items-center sm:gap-4  px-12 ">
-          <a
+          <button
             className=" shrink-0 rounded-md border border-green-300 bg-green-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-green-600 focus:outline-none focus:ring active:text-green-500"
             type="submit"
+            onClick={() => user.name.length >= 1 && setToogle("green")}
           >
             Crie sua conta
-          </a>
+          </button>
 
           <LoginParagraph />
         </div>
       </form>
 
-      {user.name && (
-        <div>{[user.name, user.lastName, user.email, user.password]}</div>
-      )}
-      {toogle === "red" ? (
+      {/* {toogle === "red" ? (
         <Alert.Red
           title="recomfirme seus dados"
-          subtitle={JSON.stringify(errors)}
+          subtitle={errors.root?.message}
         />
       ) : (
         toogle === "green" && (
@@ -182,6 +197,13 @@ export const Form = () => {
             subtitle="Voce sera redirecionado em segundos"
           />
         )
+      )} */}
+
+      {toogle === "green" && (
+        <Alert.Green
+          title="Registrado Com Sucesso !!!"
+          subtitle="voce sera direcionado em segundos..."
+        />
       )}
     </>
   );
