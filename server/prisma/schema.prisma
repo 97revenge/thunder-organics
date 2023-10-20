@@ -19,7 +19,32 @@ model User {
   email String @unique
   password String 
   createdAt DateTime @default(now())
+} 
+
+model LegacyProduct {
+  id Int @id @default(autoincrement())
+  image String 
+  name String 
+  value Int
+  description String 
 }
+
+model Product { 
+  id Int @id @default(autoincrement())
+  image String
+  price Int 
+  // eu nao coloquei discount porque price é uma int
+  // entao posso trabalhar emcima de metodos matemáticos
+  tag String @default("Verduras")
+  offer Boolean
+  br Boolean
+  name String 
+  description String
+  free Boolean
+}
+
+
+
 
 
 
