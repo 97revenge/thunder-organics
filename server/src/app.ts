@@ -28,11 +28,13 @@ app.get("/user", async (req, res): Promise<Middleware | void> => {
 app.post("/user", async (req, res): Promise<Middleware | void> => {
   const { name, lastName, email, password } = req.body;
 
+  // const hashedPassword = await bcrypt.hash(password, 10);
+
   // const user = await prisma.user.create({
   //   name,
   //   lastName,
   //   email,
-  //   password,
+  //   password:password,
   // });
 
   res.status(201).send({ message: "usuario criado com sucesso !!! " });
