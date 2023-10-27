@@ -5,6 +5,9 @@ import express, { Router, Request, Response } from "express";
 const router: Router = express.Router();
 const prisma: PrismaClient = new PrismaClient();
 
+const app = express();
+app.use(express.json());
+
 type Props = {
   getter: object;
   setter: object;
@@ -30,17 +33,20 @@ function ProductWare(this: Props, id: any, value: string) {
   };
   this.posting = function () {
     router.get("/product", async (req, res): Promise<Middleware | void> => {
-      const { image, price, tag, offer, br, name, description, free } =
+      const { id, image, price, tag, offer, br, name, description, free } =
         req.body;
       const instance = await prisma.user.create({
-        image: image,
-        price,
-        tag,
-        offer,
-        br,
-        name,
-        description,
-        free,
+        data: {
+          id,
+          image,
+          price,
+          tag,
+          offer,
+          br,
+          name,
+          description,
+          free,
+        },
       });
 
       res.status(201).send({ instance });

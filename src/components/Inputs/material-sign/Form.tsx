@@ -103,7 +103,7 @@ export const Form = () => {
             {...register("name")}
           />
           {errors.name?.message && (
-            <MaterialSpan children={errors.name?.message} />
+            <MaterialSpan>{errors.name.message}</MaterialSpan>
           )}
         </div>
 
