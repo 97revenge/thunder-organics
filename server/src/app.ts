@@ -1,14 +1,15 @@
 import express, { Application } from "express";
 
-// import cors from "cors";
+import cors from "cors";
 
-import router from "./product";
+import { router as products } from "./product";
 import { Middleware } from "./types/types";
 
 const app: Application = express();
 const port = process.env.PORT || 4000;
 
-app.use(router);
+app.use(products);
+app.use(cors);
 
 app.get("/", (req, res): Middleware | void => {
   console.log(req.params);

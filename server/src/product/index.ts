@@ -1,6 +1,5 @@
 import { User as zod } from "./../types/zod";
-import { Middleware } from "./../types/types";
-import { Prisma, PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import express, { Router, Request, Response } from "express";
 
 const router: Router = express.Router();
@@ -12,7 +11,7 @@ router.get("/products", async (_req: Request, res: Response) => {
   try {
     const instance = await prisma.product.findMany();
 
-    res.status(202).send({ instance });
+    res.status(202).json({ products: instance });
   } catch (err) {
     console.log(err);
   }
@@ -22,7 +21,7 @@ router.post("/products", async (req: Request, res: Response) => {
   try {
     const { image, price, tag, name, description } = req.body;
 
-    const instance = await prisma.product.create({
+    const instance: zod = await prisma.product.create({
       data: {
         image,
         price,
@@ -31,15 +30,13 @@ router.post("/products", async (req: Request, res: Response) => {
         description,
       },
     });
-
     res.status(201).json(instance);
   } catch (err) {
     console.log(err);
   }
 });
 
-export default router;
-
+export { router };
 // router.post("/products", async (req: Request, res: Response) => {
 //   const { image, price, tag, name, description } = req.body;
 //   const instance: zod = await prisma.product.create({
