@@ -1,4 +1,4 @@
-import { User as zod } from "./../types/zod";
+import { Product as zod } from "./../types/zod";
 import { PrismaClient } from "@prisma/client";
 import express, { Router, Request, Response } from "express";
 
