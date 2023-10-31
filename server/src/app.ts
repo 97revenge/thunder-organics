@@ -2,12 +2,8 @@ import express, { Application } from "express";
 
 // import cors from "cors";
 
-import router from "./macro";
+import router from "./product";
 import { Middleware } from "./types/types";
-
-import { User as zod } from "./types/zod";
-
-import { PrismaClient } from "@prisma/client";
 
 const app: Application = express();
 const port = process.env.PORT || 4000;
@@ -17,7 +13,7 @@ app.use(router);
 app.get("/", (req, res): Middleware | void => {
   console.log(req.params);
 
-  res.send("ok");
+  res.send("sd,fmsdklfgjm");
 });
 
 app.listen(port, () => console.log("ok"));
