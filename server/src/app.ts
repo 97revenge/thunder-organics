@@ -5,6 +5,8 @@ import express, { Application } from "express";
 import router from "./macro";
 import { Middleware } from "./types/types";
 
+import { User as zod } from "./types/zod";
+
 import { PrismaClient } from "@prisma/client";
 
 const app: Application = express();
@@ -16,28 +18,6 @@ app.get("/", (req, res): Middleware | void => {
   console.log(req.params);
 
   res.send("ok");
-});
-
-const prisma = new PrismaClient();
-
-app.get("/user", async (req, res): Promise<Middleware | void> => {
-  const user = await prisma.user.findMany();
-  res.send(user);
-});
-
-app.post("/user", async (req, res): Promise<Middleware | void> => {
-  const { name, lastName, email, password } = req.body;
-
-  // const hashedPassword = await bcrypt.hash(password, 10);
-
-  // const user = await prisma.user.create({
-  //   name,
-  //   lastName,
-  //   email,
-  //   password:password,
-  // });
-
-  res.status(201).send({ message: "usuario criado com sucesso !!! " });
 });
 
 app.listen(port, () => console.log("ok"));

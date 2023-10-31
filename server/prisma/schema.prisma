@@ -12,35 +12,18 @@ datasource db {
 
 
 
-model User { 
-  id String  @default(cuid())
-  name String 
-  lastName String
-  email String @unique
-  password String 
-  createdAt DateTime @default(now())
-} 
 
-model LegacyProduct {
-  id Int @id @default(autoincrement())
-  image String 
-  name String 
-  value Int
-  description String 
-}
+
 
 model Product { 
   id Int @id @default(autoincrement()) 
-  image String // url da imagem do produto
-  price Int  // valor do produto
-  // eu nao coloquei discount porque price é uma int
-  // entao posso trabalhar emcima de metodos matemáticos
-  tag String @default("Verduras") // tag para itens relacionados
-  offer Boolean // se é oferta de primeira conta 
-  br Boolean // se o produto é do brasil
-  name String  // nome do produto
-  description String // descricao do produto
+  image String 
+  price Int 
+  tag String @default("Verduras") 
+  name String  
+  description String 
 
+  @@map("product")
 }
 
 
