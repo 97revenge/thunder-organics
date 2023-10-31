@@ -8,6 +8,19 @@ const prisma: PrismaClient = new PrismaClient();
 const app = express();
 app.use(express.json());
 
+import { z } from "zod";
+
+const schema = z.object({
+  id: z.number(),
+  image: z.string(),
+  price: z.number(),
+  tag: z.string(),
+  offer: z.boolean(),
+  br: z.boolean(),
+  name: z.string(),
+  description: z.string(),
+});
+
 type Props = {
   getter: object;
   setter: object;

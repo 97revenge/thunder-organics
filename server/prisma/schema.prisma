@@ -40,9 +40,6 @@ model Product {
   br Boolean // se o produto é do brasil
   name String  // nome do produto
   description String // descricao do produto
-  free Boolean  // se o frete é gratos
-  
-
 
 }
 
