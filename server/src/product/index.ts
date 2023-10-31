@@ -10,9 +10,9 @@ router.use(express.json());
 
 router.get("/products", async (_req: Request, res: Response) => {
   try {
-    const instance = prisma.product.findMany();
+    const instance = await prisma.product.findMany();
 
-    res.status(202).json(instance);
+    res.status(202).send({ instance });
   } catch (err) {
     console.log(err);
   }
