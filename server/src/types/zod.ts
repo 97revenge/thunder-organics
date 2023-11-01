@@ -23,3 +23,12 @@ export const schemaUser = z.object({
 });
 
 export type User = z.infer<typeof schemaUser>;
+
+const schemaPost = z.object({
+  id: z?.string(),
+  title: z.string(),
+  author: z.string(),
+  content: z.string(),
+});
+
+export type Post = z.infer<typeof schemaPost>;

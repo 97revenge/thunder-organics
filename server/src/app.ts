@@ -26,7 +26,7 @@ app.get("/", (req, res): Middleware | void => {
 app.listen(port, () => console.log("ok"));
 
 // async function main() {
-//   // [] - primeiro teste e validacao dele para a api
+//   // [] - primeiro teste e validacao dele para a api OK
 //   // [] - entidade post
 //   // [] - entidade product
 //   // [] - query validations
