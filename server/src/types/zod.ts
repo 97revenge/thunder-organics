@@ -11,12 +11,15 @@ const schemaProduct = z.object({
 
 export type Product = z.infer<typeof schemaProduct>;
 
-const schemaUser = z.object({
-  id: z.number(),
-  name: z.string().min(1),
-  lastname: z.string().min(1),
+export const schemaUser = z.object({
+  id: z?.number(),
+  name: z
+    .string()
+    .min(1)
+    .max(30, { message: "seu nome precisa ter até 30 caracteres" }),
+  lastName: z.string().min(1),
   email: z.string().email(),
-  password: z.string().min(8).includes(String(/@/)),
+  password: z.string(),
 });
 
 export type User = z.infer<typeof schemaUser>;

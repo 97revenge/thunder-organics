@@ -3,12 +3,18 @@ import express, { Application } from "express";
 import cors from "cors";
 
 import { router as products } from "./product";
+import { router as users } from "./user";
 import { Middleware } from "./types/types";
+
+import env from "dotenv";
+
+env.config();
 
 const app: Application = express();
 const port = process.env.PORT || 4000;
 
 app.use(products);
+app.use(users);
 app.use(cors);
 
 app.get("/", (req, res): Middleware | void => {
