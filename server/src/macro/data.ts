@@ -1,5 +1,3 @@
-import { Product } from "../types/types";
-
 function generate(value: number) {
   return value - value + Math.floor(Math.random() * 5);
 }
@@ -188,4 +186,4 @@ export const data = [
       return value - value + Math.floor(Math.random() * 5);
     },
   },
-] satisfies Partial<Product[]>;
+];

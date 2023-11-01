@@ -1,43 +1,26 @@
 import express, { Application } from "express";
 
-// import cors from "cors";
+import cors from "cors";
 
-import router from "./macro";
+import { router as products } from "./product";
+import { router as users } from "./user";
 import { Middleware } from "./types/types";
 
-import { PrismaClient } from "@prisma/client";
+import env from "dotenv";
+
+env.config();
 
 const app: Application = express();
 const port = process.env.PORT || 4000;
 
-app.use(router);
+app.use(products);
+app.use(users);
+app.use(cors);
 
 app.get("/", (req, res): Middleware | void => {
   console.log(req.params);
 
-  res.send("ok");
-});
-
-const prisma = new PrismaClient();
-
-app.get("/user", async (req, res): Promise<Middleware | void> => {
-  const user = await prisma.user.findMany();
-  res.send(user);
-});
-
-app.post("/user", async (req, res): Promise<Middleware | void> => {
-  const { name, lastName, email, password } = req.body;
-
-  // const hashedPassword = await bcrypt.hash(password, 10);
-
-  // const user = await prisma.user.create({
-  //   name,
-  //   lastName,
-  //   email,
-  //   password:password,
-  // });
-
-  res.status(201).send({ message: "usuario criado com sucesso !!! " });
+  res.send("sd,fmsdklfgjm");
 });
 
 app.listen(port, () => console.log("ok"));

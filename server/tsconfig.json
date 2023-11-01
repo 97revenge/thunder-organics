@@ -8,6 +8,10 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "strictPropertyInitialization": false,
-    "resolveJsonModule": true
-  }
+    "resolveJsonModule": true,
+    "outDir": "out",
+    "rootDir": "src"
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
 }
