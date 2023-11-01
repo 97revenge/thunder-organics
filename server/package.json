@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@testing-library/react": "^14.0.0",
     "@types/cors": "^2.8.14",
     "@types/jest": "^29.5.7",
     "@types/node": "^20.8.7",
