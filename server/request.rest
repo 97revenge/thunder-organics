@@ -1,0 +1,12 @@
+# GET Request
+GET http://localhost:4000/user
+
+# POST Request with JSON Body
+POST http://localhost:4000/user
+Content-Type: application/json
+
+{
+    "test": "test",
+    "body": "tae",
+    "test": 1
+}
