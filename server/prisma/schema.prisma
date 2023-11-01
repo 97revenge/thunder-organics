@@ -11,23 +11,30 @@ datasource db {
 }
 
 
-// model  post { 
-//   // id Int @unique
-//   title String 
-//   content String 
-// } 
 
 
-model User { 
-  id String @id @default(cuid())
-  name String 
-  lastName String
-  email String @unique
-  password String 
-  createdAt DateTime @default(now())
+model Product { 
+  id Int @id @default(autoincrement()) 
+  image String 
+  price Int 
+  tag String @default("Verduras") 
+  name String  
+  description String 
+
+  @@map("product")
 }
 
 
+
+
+model User { 
+  id Int @id @default(autoincrement()) 
+  name String
+  lastName String
+  email String @unique
+  password String 
+  @@map("user")
+}
 
 
 
