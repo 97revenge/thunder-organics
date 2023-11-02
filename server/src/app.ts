@@ -4,6 +4,7 @@ import cors from "cors";
 
 import { router as products } from "./product";
 import { router as users } from "./user";
+import { router as blog } from "./blog";
 import { Middleware } from "./types/types";
 
 import env from "dotenv";
@@ -15,12 +16,13 @@ const port = process.env.PORT || 4000;
 
 app.use(products);
 app.use(users);
+app.use(blog);
 app.use(cors);
 
 app.get("/", (req, res): Middleware | void => {
   console.log(req.params);
 
-  res.send("sd,fmsdklfgjm");
+  res.send("ola mundo");
 });
 
 app.listen(port, () => console.log("ok"));

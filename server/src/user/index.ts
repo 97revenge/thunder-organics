@@ -63,31 +63,6 @@ router.all("/delete/:id", async (req: Request, res: Response) => {
   }
 });
 
-router.all(
-  "/update/:id/:name/:lastName/:email/",
-  async (req: Request, res: Response) => {
-    const id = Number(req.params.id);
-    const update = {
-      name: req.params.name,
-      lastName: req.params.lastName,
-      email: req.params.email,
-    };
-
-    const instance = prisma.user.update({
-      where: {
-        id: id,
-      },
-      data: {
-        name: update.name,
-        lastName: update.lastName,
-        email: update.email,
-      },
-    });
-
-    res.send({ message: "editado com sucesso !!!", content: instance });
-  }
-);
-
 router
   .all("/update-name/:id/:name", async (req: Request, res: Response) => {
     try {

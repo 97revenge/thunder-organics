@@ -19,6 +19,17 @@ router.get("/posts", async (_req: Request, res: Response) => {
   // res.send({content: })
 });
 
+router.get("posts/:id", async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const instance = await prisma.post.findUnique({
+    where: {
+      id: id,
+    },
+  });
+
+  res.send({ message: "ëncontrado com sucesso", content: instance });
+});
+
 router.post("/posts", async (req: Request, res: Response) => {
   try {
     const { title, author, content } = req.body;
