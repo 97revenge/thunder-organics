@@ -4,6 +4,7 @@ import { LoginParagraph } from "./LoginParagraph";
 import { PrivacyBox } from "./PrivacyBox";
 import { User } from "./User";
 import { Alert } from "./Alert";
+
 import React from "react";
 
 import { useForm } from "react-hook-form";
@@ -11,6 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { z } from "zod";
 import { userSchema } from "./userSchema";
+import { GoogleAuth } from "../../Buttons/GoogleAuth";
 
 type UserSchemaType = z.infer<typeof userSchema>;
 
@@ -86,90 +88,93 @@ export const Form = () => {
     <>
       <form
         action="#"
-        className="mt-8 grid grid-cols-6 gap-6 px-10 py-2 sm:px-0  pt-3   rounded-md md:transparent bg-opacity-35"
+        className="mt-8 grid grid-cols-6 gap-3 "
         onSubmit={onsubmit}
       >
-        <div className="col-span-6 sm:col-span-3 ">
-          <Label tag="Nome" />
+        <div className="flex flex-col bg-green-200 rounded-md bg-opacity-15 w-[550px] pl-20 p-2 gap-2 ">
+          <div className="col-span-6 sm:col-span-3  w-full  ">
+            <Label tag="Nome" />
 
-          <input
-            type="text"
-            id="FirstName"
-            className={
-              !errors.name?.message
-                ? "mt-1 w-[275px] rounded-md  bg-gray-100 text-sm text-gray-700 shadow-md h-8 m-1 pl-2 border "
-                : "mt-1 w-[275px] rounded-md  bg-gray-100 text-sm text-gray-700 shadow-md h-8 m-1 pl-2 border border-red-200"
-            }
-            {...register("name")}
-          />
-          {errors.name?.message && (
-            <MaterialSpan>{errors.name.message}</MaterialSpan>
-          )}
+            <input
+              type="text"
+              id="FirstName"
+              className={
+                !errors.name?.message
+                  ? "mt-1 w-[240px]  rounded-md  bg-gray-100 text-sm text-gray-700 shadow-md h-8 m-1 pl-2 border "
+                  : "mt-1 w-[240px] rounded-md  bg-gray-100 text-sm text-gray-700 shadow-md h-8 m-1 pl-2 border border-red-200"
+              }
+              {...register("name")}
+            />
+            {errors.name?.message && (
+              <MaterialSpan>{errors.name.message}</MaterialSpan>
+            )}
+          </div>
+
+          <div className="col-span-6 md:col-span-3 ">
+            <Label tag="Sobrenome" />
+            <input
+              type="text"
+              id="LastName"
+              className={
+                !errors.lastName?.message
+                  ? "mt-1 w-[240px] rounded-md  bg-gray-100 text-sm text-gray-700 shadow-md h-8 m-1 pl-2 border"
+                  : "mt-1 w-[240px] rounded-md  bg-gray-100 text-sm text-gray-700 shadow-md h-8 m-1 pl-2 border border-red-200"
+              }
+              {...register("lastName")}
+            />
+            {errors.lastName?.message && (
+              <MaterialSpan children={errors.lastName?.message} />
+            )}
+          </div>
+
+          <div className="col-span-6 ">
+            <Label tag="Email" />
+            <input
+              type="email"
+              id="Email"
+              className={
+                !errors.email?.message
+                  ? "mt-1 w-[240px] rounded-md  bg-gray-100 text-sm text-gray-700 shadow-md h-8 m-1 pl-2 border"
+                  : "mt-1 w-[240px] rounded-md  bg-gray-100 text-sm text-gray-700 shadow-md h-8 m-1 pl-2 border border-red-200"
+              }
+              {...register("email")}
+            />
+            {errors.email?.message && (
+              <MaterialSpan children={errors.email?.message} />
+            )}
+          </div>
+
+          <div className="col-span-6 sm:col-span-3">
+            <Label tag="Senha" />
+
+            <input
+              type="password"
+              id="Password"
+              className={
+                "mt-1 w-[240px] rounded-md  bg-gray-100 text-sm text-gray-700 shadow-md h-8 m-1 pl-2 border "
+              }
+              {...register("password")}
+            />
+            {errors.password?.message && (
+              <MaterialSpan children={errors.password?.message} />
+            )}
+          </div>
+
+          <div className="col-span-6 sm:col-span-3">
+            <Label tag="Comfirme a senha " />
+            <input
+              type="password"
+              id="PasswordConfirmation"
+              className={
+                "mt-1 w-[240px] rounded-md  bg-gray-100 text-sm text-gray-700 shadow-md h-8 m-1 pl-2 "
+              }
+            />
+            {errors.comfirm?.message && (
+              <MaterialSpan children={errors.comfirm.message} />
+            )}
+          </div>
         </div>
 
-        <div className="col-span-6 sm:col-span-3">
-          <Label tag="Sobrenome" />
-          <input
-            type="text"
-            id="LastName"
-            className={
-              !errors.lastName?.message
-                ? "mt-1 w-[275px] rounded-md  bg-gray-100 text-sm text-gray-700 shadow-md h-8 m-1 pl-2 border"
-                : "mt-1 w-[275px] rounded-md  bg-gray-100 text-sm text-gray-700 shadow-md h-8 m-1 pl-2 border border-red-200"
-            }
-            {...register("lastName")}
-          />
-          {errors.lastName?.message && (
-            <MaterialSpan children={errors.lastName?.message} />
-          )}
-        </div>
-
-        <div className="col-span-6 ">
-          <Label tag="Email" />
-          <input
-            type="email"
-            id="Email"
-            className={
-              !errors.email?.message
-                ? "mt-1 w-[275px] rounded-md  bg-gray-100 text-sm text-gray-700 shadow-md h-8 m-1 pl-2 border"
-                : "mt-1 w-[275px] rounded-md  bg-gray-100 text-sm text-gray-700 shadow-md h-8 m-1 pl-2 border border-red-200"
-            }
-            {...register("email")}
-          />
-          {errors.email?.message && (
-            <MaterialSpan children={errors.email?.message} />
-          )}
-        </div>
-
-        <div className="col-span-6 sm:col-span-3">
-          <Label tag="Senha" />
-
-          <input
-            type="password"
-            id="Password"
-            className={
-              "mt-1 w-[275px] rounded-md  bg-gray-100 text-sm text-gray-700 shadow-md h-8 m-1 pl-2 border "
-            }
-            {...register("password")}
-          />
-          {errors.password?.message && (
-            <MaterialSpan children={errors.password?.message} />
-          )}
-        </div>
-
-        <div className="col-span-6 sm:col-span-3">
-          <Label tag="Comfirme a senha " />
-          <input
-            type="password"
-            id="PasswordConfirmation"
-            className={
-              "mt-1 w-[275px] rounded-md  bg-gray-100 text-sm text-gray-700 shadow-md h-8 m-1 pl-2 "
-            }
-          />
-          {errors.comfirm?.message && (
-            <MaterialSpan children={errors.comfirm.message} />
-          )}
-        </div>
         <PrivacyBox props={false} />
 
         <div className="col-span-6 sm:flex sm:items-center sm:gap-4  px-12 ">
@@ -184,7 +189,7 @@ export const Form = () => {
           <LoginParagraph />
         </div>
       </form>
-
+      <GoogleAuth sign="Conecte-se com Google" />
       {/* {toogle === "red" ? (
         <Alert.Red
           title="recomfirme seus dados"
@@ -198,7 +203,6 @@ export const Form = () => {
           />
         )
       )} */}
-
       {toogle === "green" && (
         <Alert.Green
           title="Registrado Com Sucesso !!!"
