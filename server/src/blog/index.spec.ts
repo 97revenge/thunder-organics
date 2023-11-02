@@ -5,9 +5,9 @@ const app: Application = express();
 
 app.use(router);
 
-describe("/product validation", () => {
-  it("deve validar /products", async () => {
-    const response = await supertest(app).get("/products/");
+describe("/posts validation", () => {
+  it("deve validar /posts", async () => {
+    const response = await supertest(app).get("/posts/");
     expect(response.status).toBe(202);
   });
 });

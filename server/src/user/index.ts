@@ -11,7 +11,7 @@ const prisma: PrismaClient = new PrismaClient();
 router.get("/user", async (_req: Request, res: Response, next) => {
   const instance = await prisma.user.findMany();
 
-  res.send({ content: instance });
+  res.status(202).send({ message: "procurado com suceso", content: instance });
   next();
 });
 
