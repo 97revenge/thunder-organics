@@ -13,7 +13,7 @@ router.get("/products", async (req: Request, res: Response) => {
   try {
     const instance = await prisma.product.findMany();
     res.status(202).json({
-      message: "buscado com suceso",
+      message: "buscado com sucesso",
       products: instance,
       method: req.query.endpoint,
     });

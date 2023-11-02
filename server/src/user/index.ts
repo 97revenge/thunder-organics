@@ -8,8 +8,6 @@ import bcrypt from "bcrypt";
 const router: Router = express.Router();
 const prisma: PrismaClient = new PrismaClient();
 
-// import { schemaUser } from "../types/zod";
-
 router.get("/user", async (_req: Request, res: Response, next) => {
   const instance = await prisma.user.findMany();
 
